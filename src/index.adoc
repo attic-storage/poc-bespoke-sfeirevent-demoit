@@ -25,34 +25,22 @@ And can be improved.
 [.bg4.demoit]
 == Demoit: Terminal
 
-++++
-<web-term path="folder"></web-term>
-++++
+demoit::web-term[path="folder"]
 
 [.bg4.axis.demoit]
 == Demoit: Split view - Shell/Browser
 
 * {blank}
 +
-++++
-<web-term path="folder"></web-term>
-++++
+demoit::web-term[path="folder"]
 * {blank}
 +
-++++
-<web-browser src="http://localhost:8000/"></web-browser>
-++++
+demoit::web-browser[src="http://localhost:8000/"]
 
 [.nobg.demoit]
 == Demoit: Code samples
 
-++++
-<source-code folder="sources"
-    files="main.go pod.yaml"
-    start-lines="10;4,7"
-    end-lines="11;4,8">
-</source-code>
-++++
+demoit::source-code[folder="sources",files="main.go pod.yaml",start-lines="10;4,7",end-lines="11;4,8"]
 
 
 [.bg4.axis.demoit]
@@ -60,16 +48,7 @@ And can be improved.
 
 * {blank}
 +
-++++
-<source-code folder="makefile"
-    files="Makefile"
-    start-lines="7"
-    end-lines="9">
-</source-code>
-++++
-
+demoit::source-code[folder="makefile",files="Makefile",start-lines="7",end-lines="9"]
 * {blank}
 +
-++++
-<web-term path="makefile"></web-term>
-++++
+demoit::web-term[path="makefile"]

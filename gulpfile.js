@@ -47,7 +47,7 @@ gulp.task('demoit:js', ['clean:demoit:js'], function() {
 gulp.task('html', ['clean:html', 'clean:diagram-images'], function() {
   return gulp.src('src/index.adoc')
     .pipe(isDist ? through() : plumber())
-    .pipe(exec('bundle exec asciidoctor-bespoke -r asciidoctor-diagram -o - -T ./node_modules/' + bespoke_theme + '/asciidoctor/templates src/index.adoc', { pipeStdout: true }))
+    .pipe(exec('bundle exec asciidoctor-bespoke -r asciidoctor-diagram -r ./asciidoctor/lib/demoit-block-macro.rb -o - -T ./node_modules/' + bespoke_theme + '/asciidoctor/templates src/index.adoc', { pipeStdout: true }))
     .pipe(exec.reporter({ stdout: false }))
     .pipe(rename('index.html'))
     .pipe(gulp.dest('dist'))
@@ -119,7 +119,7 @@ gulp.task('clean:fonts', function() {
   return del('dist/fonts');
 });
 
-gulp.task('connect', ['build'], function() {
+gulp.task('connect', function() {
   connect.server({ root: 'dist', port: process.env.PORT || 8000, livereload: false });
 });
 
@@ -135,6 +135,6 @@ gulp.task('watch', function() {
 
 gulp.task('build', ['demoit:js', 'js', 'post-html', 'css', 'images', 'fonts']);
 
-gulp.task('serve', ['connect', 'watch']);
+gulp.task('serve', ['build', 'connect', 'watch']);
 
 gulp.task('default', ['build']);
