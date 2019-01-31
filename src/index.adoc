@@ -21,3 +21,55 @@
 This integration is `under development`.
 
 And can be improved.
+
+[.bg4.demoit]
+== Demoit: Terminal
+
+++++
+<web-term path="folder"></web-term>
+++++
+
+[.bg4.axis.demoit]
+== Demoit: Split view - Shell/Browser
+
+* {blank}
++
+++++
+<web-term path="folder"></web-term>
+++++
+* {blank}
++
+++++
+<web-browser src="http://localhost:8000/"></web-browser>
+++++
+
+[.nobg.demoit]
+== Demoit: Code samples
+
+++++
+<source-code folder="sources"
+    files="main.go pod.yaml"
+    start-lines="10;4,7"
+    end-lines="11;4,8">
+</source-code>
+++++
+
+
+[.bg4.axis.demoit]
+== Demoit: Shell/Code
+
+* {blank}
++
+++++
+<source-code folder="makefile"
+    files="Makefile"
+    start-lines="7"
+    end-lines="9">
+</source-code>
+++++
+
+* {blank}
++
+++++
+<web-term path="makefile"></web-term>
+++++

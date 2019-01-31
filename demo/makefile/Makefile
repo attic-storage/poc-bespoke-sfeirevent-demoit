@@ -8,7 +8,6 @@ need-gulp:
 build: need-gulp configure
 	gulp
 
-.PHONY: clean
 clean:
 	rm -rf dist || true
 
@@ -24,11 +23,37 @@ serve-slides: need-gulp configure
 show-slides:
 	open $(SLIDES_SERVER)
 
-# Demo server
+# demo server
 .PHONY: serve-demo
 serve-demo:
 	type demoit || go get -u github.com/dgageot/demoit
 	demoit -dev demo
+
+# Presentation server
+.PHONY: serve-presentation
+serve-presentation:
+	type enprez || npm install -g ensuite-present
+	enprez
+
+.PHONY: show-presentation
+show-presentation:
+	open http://localhost:4320/pages/viewer/
+	open http://localhost:4320/pages/console/?slide-deck-url=$(SLIDES_SERVER)/?ensuite
+
+# PDF generation
+.PHONY: generate-pdf
+generate-pdf:
+	rm -rf dist/export || true
+	$(MAKE) dist/export/sfeirevent-content.pdf
+
+dist/export/sfeirevent-content.pdf:
+	type decktape || npm install -g decktape
+	mkdir -p dist/export/screenshots
+	cd dist/export/; decktape --screenshots bespoke $(SLIDES_SERVER) sfeirevent-content.pdf
+
+.PHONY: show-pdf
+show-pdf: dist/export/sfeirevent-content.pdf
+	open dist/export/sfeirevent-content.pdf
 
 # Configuration
 .PHONY: configure
@@ -42,7 +67,6 @@ node_modules:
 	type bundle || gem install bundler
 	bundle --path=.bundle/gems
 
-.PHONY: reset-configuration
 reset-configuration: clean
 	rm -rf node_modules || true
 	rm -rf .bundle || true

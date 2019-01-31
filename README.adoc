@@ -4,6 +4,8 @@
 :uri-nvm: https://github.com/creationix/nvm
 :uri-ruby: https://www.ruby-lang.org
 :uri-rvm: https://rvm.io
+:uri-golang: https://golang.org
+:uri-golang-install: https://golang.org/doc/install
 
 == View slides locally
 
@@ -17,13 +19,32 @@ First, ensure you have the following installed:
 
  $ rvm install ruby --latest
 
-Then build and serve the presentation!
+. {uri-golang}[Golang] - Follow {uri-golang-install}[installation instructions]
+
+Then serve the demo
+
+ $ make serve-demo
+
+And build and serve the presentation!
 
  $ make serve-slides
 
 You can view the presentation in your browser at the URL displayed in the console.
 
   $ make show-slides
+
+WARNING
+====
+On chrome, you will have a CORS issue between slides and demoit server.
+
+Use the https://github.com/vitvad/Access-Control-Allow-Origin[Access Control Allow Origin] plugin to manage this issue.
+
+[source]
+.configuration for localhost 
+----
+*://localhost:*/*
+----
+====
 
 Use the kbd:[<-] and kbd:[->] arrows to navigate the slides.
 You can use kbd:[<space>] and kbd:[Shift+<space>] to navigate as well.
