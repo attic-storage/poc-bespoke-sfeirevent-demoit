@@ -1,0 +1,23 @@
+= Bespoke Demoit
+// ------------------------------------------------------------------------
+// GLOBAL CONFIGURATION
+:!sectids:
+:noheader:
+:imagesdir: images
+:source-highlighter: highlight.js
+:highlightjs-theme: solarized-light
+:highlightjsdir: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0
+:icons: font
+:iconfont-remote:
+:iconfont-cdn: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+:docinfo: shared
+
+[.topic]
+== Integrate: Demoit to Bespoke.js
+
+[.bg1]
+== WARNING
+
+This integration is `under development`.
+
+And can be improved.
