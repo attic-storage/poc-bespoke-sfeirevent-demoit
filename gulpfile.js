@@ -38,16 +38,10 @@ gulp.task('js', ['clean:js'], function() {
     .pipe(connect.reload());
 });
 
-gulp.task('demoit:js', ['clean:demoit:js'], function() {
-  return gulp.src('demo/scripts/**/*')
-    .pipe(gulp.dest('dist/scripts'))
-    .pipe(connect.reload());
-});
-
 gulp.task('html', ['clean:html', 'clean:diagram-images'], function() {
   return gulp.src('src/index.adoc')
     .pipe(isDist ? through() : plumber())
-    .pipe(exec('bundle exec asciidoctor-bespoke -r asciidoctor-diagram -r ./asciidoctor/lib/demoit-block-macro.rb -o - -T ./node_modules/' + bespoke_theme + '/asciidoctor/templates src/index.adoc', { pipeStdout: true }))
+    .pipe(exec('bundle exec asciidoctor-bespoke -r asciidoctor-diagram -r ./asciidoctor/lib/*.rb -o - -T ./node_modules/' + bespoke_theme + '/asciidoctor/templates src/index.adoc', { pipeStdout: true }))
     .pipe(exec.reporter({ stdout: false }))
     .pipe(rename('index.html'))
     .pipe(gulp.dest('dist'))
@@ -99,10 +93,6 @@ gulp.task('clean:js', function() {
   return del('dist/build/build.js');
 });
 
-gulp.task('clean:demoit:js', function() {
-  return del('dist/scripts');
-});
-
 gulp.task('clean:css', function() {
   return del('dist/build/build.css');
 });
@@ -119,22 +109,21 @@ gulp.task('clean:fonts', function() {
   return del('dist/fonts');
 });
 
-gulp.task('connect', function() {
+gulp.task('connect', ['build'], function() {
   connect.server({ root: 'dist', port: process.env.PORT || 8000, livereload: false });
 });
 
 gulp.task('watch', function() {
   gulp.watch('src/**/*.adoc', ['post-html']);
   gulp.watch('src/scripts/**/*.js', ['js']);
-  gulp.watch('demo/scripts/**/*.js', ['demoit:js']);
   gulp.watch('src/styles/**/*.styl', ['css']);
   // NOTE remove auto-generated asciidoctor diagram from watch (generated during 'post-html' task)
   gulp.watch(['src/images/**/*', '!src/images/diag-*'], ['images']);
   gulp.watch('src/fonts/*', ['fonts']);
 });
 
-gulp.task('build', ['demoit:js', 'js', 'post-html', 'css', 'images', 'fonts']);
+gulp.task('build', ['js', 'post-html', 'css', 'images', 'fonts']);
 
-gulp.task('serve', ['build', 'connect', 'watch']);
+gulp.task('serve', ['connect', 'watch']);
 
 gulp.task('default', ['build']);
